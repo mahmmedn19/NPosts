@@ -1,27 +1,26 @@
 package com.monaser.nposts.presentation.post_details
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.monaser.nposts.R
+import com.monaser.nposts.databinding.FragmentPostDetailsBinding
+import com.monaser.nposts.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PostDetailsFragment : Fragment() {
+class PostDetailsFragment : BaseFragment<FragmentPostDetailsBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override val TAG: String = this::class.java.simpleName
+    override val layoutIdFragment: Int = R.layout.fragment_post_details
+    override val viewModel: PostsDetailsViewModel by viewModels()
 
+    override fun setup() {
+        val args: PostDetailsFragmentArgs by navArgs()
+        val postId = args.id
+        lifecycleScope.launch {
+            viewModel.getPostById(postId)
+        }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post_details, container, false)
-    }
-
 }

@@ -22,5 +22,10 @@
         android:id="@+id/postDetailsFragment"
         android:name="com.monaser.nposts.presentation.post_details.PostDetailsFragment"
         android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" />
+        tools:layout="@layout/fragment_post_details"
+        >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
